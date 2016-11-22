@@ -1,1 +1,25 @@
 # YaPetStore
+
+## How to build
+
+Execute:
+
+ #> mvn clean install
+
+## How to run
+
+Execute:
+
+ #> mvn spring-boot:run
+
+
+## How to connect to the application
+
+Open your browser at this url http://localhost:8080 and enjoy!
+
+[width="40%",options="header"]
+|======================
+|User | Password | Role
+|admin        |admin123 | ADMIN
+|user     |user123 | USER
+|======================

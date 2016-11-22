@@ -1,0 +1,41 @@
+<div layout-align="center center" layout="row" layout-fill>
+    <md-whiteframe class="md-whiteframe-1dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout
+                   layout-align="center center">
+        <md-content layout="column" ng-cloak style="width: 100%">
+            <form name="loginForm" ng-submit="vm.login(vm.username, vm.password)">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">Login to YaPetStore</h2>
+                    </div>
+                </md-toolbar>
+
+                <md-content flex layout-padding>
+                    <div layout-gt-xs="column">
+                        <md-input-container class="md-block" flex-gt-xs>
+                            <label>Username</label>
+                            <input ng-model="vm.username" required>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label>Password</label>
+                            <input ng-model="vm.password" required type="password">
+                        </md-input-container>
+                    </div>
+                </md-content>
+
+
+                <md-dialog-actions layout="row">
+                    <md-content flex layout-padding class="error">
+                        {{vm.message}}
+                    </md-content>
+
+                    <span flex></span>
+                    <md-button type="submit" class="md-raised md-primary">
+                        <i class="fa fa-check" aria-hidden="true"></i> Let's go
+                    </md-button>
+                </md-dialog-actions>
+            </form>
+        </div>
+    </md-whiteframe>
+
+</div>

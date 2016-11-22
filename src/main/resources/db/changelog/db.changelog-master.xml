@@ -1,0 +1,39 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="0.0.1.1-DDL" author="nla">
+        <createSequence sequenceName="ID_SEQ" schemaName="PETSTORE"/>
+        
+        <createTable tableName="PET" schemaName="PETSTORE">
+            <column name="ID" type="NUMBER(12)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(128 CHAR)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR2(512 CHAR)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="0.0.1.2-Data" author="nla">
+        <sql>
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('SmokeScreen' , 'Ut eget dictum enim. Nunc eleifend faucibus mi ac finibus. Nullam leo sem, sagittis vitae facilisis cursus, viverra a enim. Sed facilisis diam nec velit lacinia, a hendrerit est efficitur.');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Ruh' , 'Donec porttitor ut elit et fringilla. Nulla id erat neque. Praesent molestie varius sapien, et congue massa feugiat vel. Aenean sagittis eu ante');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Squirrel' , 'vitae consequat. Nullam euismod metus at libero faucibus suscipit. Morbi viverra, tortor quis facilisis fermentum, urna libero molestie urna, dignissim malesuada');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Strobestalk' , 'massa lacus et quam. Nullam a commodo neque. Proin felis ante, tempor a efficitur at, eleifend laoreet turpis. Donec egestas blandit mattis. Donec sit amet varius justo, id sodales dui. Mauris congue lorem lectus, malesuada rutrum eros commodo id. Mauris tincidunt,');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Opaline' , 'purus eget elementum pretium, sem nunc molestie tortor, ultricies eleifend dui elit sed leo.');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Lockjaw' , 'Fusce magna nulla, laoreet sit amet scelerisque in, interdum non erat. Nunc commodo vel ligula nec ultrices. Ut nec odio semper, pharetra lacus eget, ultricies odio');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Deathmaw' , 'Donec tellus velit, ultricies nec commodo ut, consectetur at justo. Integer mollis elementum turpis. Nam finibus diam vitae augue lobortis ');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Jasmine' , 'Fusce ac varius orci. Pellentesque in odio eu libero fringilla lobortis. Cras sem nibh, bibendum vitae varius quis, imperdiet eget metus. Nullam ultricies in justo ac scelerisque.');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Sanara' , 'Nulla at mollis massa, eu lobortis est. Fusce scelerisque turpis id tellus ullamcorper, a tincidunt lorem dignissim. Vivamus vulputate aliquet quam vitae tincidunt.');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Cupcake' , 'Vestibulum dapibus risus ut viverra lobortis. Praesent ut arcu at purus pulvinar vulputate sit amet vel nisi. In ut odio bibendum, cursus erat quis, suscipit magna. Etiam a pretium tortor.');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('GlowStick' , 'Ut eget dictum enim. Nunc eleifend faucibus mi ac finibus. Nullam leo sem, sagittis vitae facilisis cursus, viverra a enim. Sed facilisis diam nec velit lacinia, a hendrerit est efficitur.');
+            INSERT INTO PETSTORE.PET (NAME, DESCRIPTION) VALUES('Lamsor' , 'Donec porttitor ut elit et fringilla. Nulla id erat neque. Praesent molestie varius sapien, et congue massa feugiat vel. Aenean sagittis eu ante');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
+

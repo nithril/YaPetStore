@@ -1,0 +1,41 @@
+<md-dialog aria-label="Pet creation">
+    <form name="petForm" ng-submit="vm.save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Pet creation</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" style="width: 500px">
+                <div layout-gt-xs="column">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Name</label>
+                        <input ng-model="vm.pet.name" required md-maxlength="64">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Description</label>
+                        <textarea ng-model="vm.pet.description" required md-maxlength="256"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="vm.cancel()" class="md-raised md-warn">
+                <i class="fa fa-cancel" aria-hidden="true"></i> Cancel
+            </md-button>
+            <md-button type="submit" class="md-raised md-primary">
+                <i class="fa fa-check" aria-hidden="true"></i> Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+
+</md-dialog>

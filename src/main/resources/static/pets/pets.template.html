@@ -1,0 +1,46 @@
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1>
+                YaPetstore
+            </h1>
+            <span flex></span>
+            <md-input-container class="global-search">
+                <label>Search a pet</label>
+                <input ng-model="search">
+            </md-input-container>
+            <md-button ng-click="vm.create()" class="md-raised" aria-label="Add a new Pet">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> Add a new Pet
+            </md-button>
+
+            <md-button ng-click="vm.logout()" class="md-fab md-mini md-warn" aria-label="Logout">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </md-button>
+
+
+        </div>
+    </md-toolbar>
+
+    <div flex layout="row" class="pets-list">
+        <div>
+            <md-card ng-repeat="pet in vm.pets  | filter:search track by pet.id" class="repeated-item pet-card">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{pet.name}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content class="pet-card-content">
+                    {{pet.description | characters:50 :true}}
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button ng-click="vm.delete($event, pet)" class="md-fab md-mini md-warn" aria-label="Delete">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </md-button>
+                    <md-button ng-click="vm.addToCart(pet)" class="md-fab md-mini md-primary" aria-label="Add to cart">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</div>
