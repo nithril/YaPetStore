@@ -8,16 +8,19 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.Collections;
-
 /**
  * Created by nlabrot on 21/11/16.
  */
 @ControllerAdvice
 public class PetStoreControllerAdvice {
 
+  /**
+   * Handle Access denied exception
+   *
+   * @return
+   */
   @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity accessDenied(){
-    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(singletonMap("message" , "Forbidden"));
+  public ResponseEntity accessDenied() {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(singletonMap("message", "Forbidden"));
   }
 }

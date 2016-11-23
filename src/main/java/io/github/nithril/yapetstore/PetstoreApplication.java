@@ -11,17 +11,17 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  * Created by nlabrot on 21/11/16.
  */
 @SpringBootApplication(exclude = {
-		SecurityFilterAutoConfiguration.class,
-		H2ConsoleAutoConfiguration.class
+    SecurityFilterAutoConfiguration.class,
+    H2ConsoleAutoConfiguration.class
 })
 public class PetstoreApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(PetstoreApplication.class);
-	}
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    return application.sources(PetstoreApplication.class);
+  }
 
-	public static void main(String[] args) {
-		SpringApplication.run(PetstoreApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(PetstoreApplication.class, args);
+  }
 }

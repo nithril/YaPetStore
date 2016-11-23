@@ -55,7 +55,9 @@ public class SecurityConfiguration {
   @Bean
   public FilterChainProxy configure() throws Exception {
     return new FilterChainProxy(asList(
+        // auth controller is not protected
         new DefaultSecurityFilterChain(new AntPathRequestMatcher("/api/auth/**")),
+        // api are protected
         new DefaultSecurityFilterChain(new AntPathRequestMatcher("/api/**"), jwtFilter()),
         new DefaultSecurityFilterChain(new AntPathRequestMatcher("/**/*")),
         new DefaultSecurityFilterChain(new AntPathRequestMatcher("/"))
@@ -64,14 +66,14 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public AuthenticationProvider authenticationProvider(){
+  public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
     provider.setUserDetailsService(userDetailsService());
     return provider;
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(){
+  public AuthenticationManager authenticationManager() {
     return new ProviderManager(Arrays.asList(authenticationProvider()));
   }
 
@@ -87,7 +89,7 @@ public class SecurityConfiguration {
   }
 
   public Filter jwtFilter() {
-    return new JwtFilter(jwtCookieName, jwtSecretKey(), xsrfHeaderName, xsrfSecretKey(), userDetailsService(), securityService);
+    return new JwtFilter(jwtCookieName, xsrfHeaderName, userDetailsService(), securityService);
   }
 
   @Bean
@@ -100,10 +102,9 @@ public class SecurityConfiguration {
     return new SecretKey(generateKey());
   }
 
-  private byte[] generateKey(){
+  private byte[] generateKey() {
     byte[] key = new byte[32];
     secureRandom.nextBytes(key);
     return key;
   }
-
 }

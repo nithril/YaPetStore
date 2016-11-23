@@ -3,9 +3,7 @@ package io.github.nithril.yapetstore.security;
 
 import io.github.nithril.yapetstore.service.SecurityService;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.ObjectUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,28 +20,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Handle Jwt token checks and Xsrf token checks
+ * <p>
  * Created by nlabrot on 21/11/16.
  */
 @Slf4j
 public class JwtFilter extends GenericFilterBean {
 
   private final String jwtCookieName;
-  private final SecretKey jwtSecretKey;
 
   private final String xsrfHeaderName;
-  private final SecretKey xsrfSecretKey;
 
   private final UserDetailsService userDetailsService;
-
 
   private final SecurityService securityService;
 
 
-  public JwtFilter(String jwtCookieName, SecretKey jwtSecretKey, String xsrfHeaderName, SecretKey xsrfSecretKey, UserDetailsService userDetailsService, SecurityService securityService) {
+  public JwtFilter(String jwtCookieName, String xsrfHeaderName, UserDetailsService userDetailsService, SecurityService securityService) {
     this.jwtCookieName = jwtCookieName;
-    this.jwtSecretKey = jwtSecretKey;
     this.xsrfHeaderName = xsrfHeaderName;
-    this.xsrfSecretKey = xsrfSecretKey;
     this.userDetailsService = userDetailsService;
     this.securityService = securityService;
   }
@@ -72,11 +67,8 @@ public class JwtFilter extends GenericFilterBean {
         return;
       }
 
-      // Check jwt token
-      Claims claims = Jwts.parser()
-          .setSigningKey(jwtSecretKey.getValue())
-          .parseClaimsJws(jwtCookie.getValue())
-          .getBody();
+      // Check and parse jwt token
+      Claims claims = securityService.checkAndParseJwt(jwtCookie.getValue());
 
       // Check xsrf token
       checkXsrf(request, jwtCookie.getValue());
@@ -92,6 +84,7 @@ public class JwtFilter extends GenericFilterBean {
 
     } catch (Exception exception) {
       LOG.error(exception.getMessage(), exception);
+      // TODO: forward to logout page
       response.setStatus(401);
     } finally {
       // Once all filter are applied, reset the security context
@@ -99,14 +92,12 @@ public class JwtFilter extends GenericFilterBean {
     }
   }
 
-
   private void checkXsrf(HttpServletRequest request, String jwtToken) {
     String xsrfToken = request.getHeader(xsrfHeaderName);
 
     if (xsrfToken == null) {
       throw new InvalidCookieException("Xsrf issue: no header");
     }
-
     securityService.checkXsrfToken(xsrfToken, jwtToken);
   }
 }

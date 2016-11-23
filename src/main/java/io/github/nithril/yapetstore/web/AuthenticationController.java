@@ -1,18 +1,11 @@
 package io.github.nithril.yapetstore.web;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonMap;
 
-
-import com.google.common.hash.Hashing;
 import io.github.nithril.yapetstore.domain.User;
-import io.github.nithril.yapetstore.security.SecretKey;
 import io.github.nithril.yapetstore.service.SecurityService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -96,7 +89,6 @@ public class AuthenticationController {
     xsrfCookie.setMaxAge(cookieMaxAge);
     xsrfCookie.setHttpOnly(false);
     xsrfCookie.setPath("/");
-
 
     response.addCookie(xsrfCookie);
   }

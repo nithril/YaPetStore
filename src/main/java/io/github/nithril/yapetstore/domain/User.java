@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
 
 import javax.annotation.Nullable;
-import javax.validation.constraints.Null;
 
 /**
  * Created by nlabrot on 21/11/16.
@@ -20,7 +19,4 @@ public interface User {
 
   @Nullable
   String getPassword();
-
-  @Nullable
-  String getRole();
 }
