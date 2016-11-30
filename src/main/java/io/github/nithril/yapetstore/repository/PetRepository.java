@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by nlabrot on 21/11/16.
@@ -46,11 +47,10 @@ public class PetRepository {
    * @param id
    * @return
    */
-  public Pet findById(Long id) {
+  public Optional<Pet> findById(Long id) {
     Objects.requireNonNull(id);
-
     return DSL.using(configuration).selectFrom(PET).where(PET.ID.eq(id))
-        .fetchOptionalInto(ImmutablePet.class).orElse(null);
+        .fetchOptionalInto(ImmutablePet.class);
   }
 
   /**

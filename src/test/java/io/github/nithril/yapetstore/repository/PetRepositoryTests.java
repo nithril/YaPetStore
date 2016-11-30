@@ -22,7 +22,7 @@ public class PetRepositoryTests extends AbstractTests {
   @Test
   public void testCreateAndFindById() throws Exception {
     Pet meow = petRepository.create(newPet().name("meow").description("description").build());
-    petRepository.findById(meow.getId()).equals(meow);
+    petRepository.findById(meow.getId()).get().equals(meow);
   }
 
 
@@ -30,7 +30,7 @@ public class PetRepositoryTests extends AbstractTests {
   public void testDelete() throws Exception {
     Pet meow = petRepository.create(newPet().name("meow").description("description").build());
     Assert.assertEquals(1 , petRepository.delete(meow.getId()));
-    Assert.assertNull(petRepository.findById(meow.getId()));
+    Assert.assertFalse(petRepository.findById(meow.getId()).isPresent());
   }
 
 

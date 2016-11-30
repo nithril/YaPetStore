@@ -2,6 +2,8 @@ package io.github.nithril.yapetstore.web;
 
 import static io.github.nithril.yapetstore.security.SecurityConfiguration.ROLE_ADMIN;
 import static io.github.nithril.yapetstore.security.SecurityConfiguration.ROLE_USER;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.ResponseEntity.status;
 
 import io.github.nithril.yapetstore.domain.Pet;
 import io.github.nithril.yapetstore.repository.PetRepository;
@@ -38,15 +40,10 @@ public class PetController {
   @Secured({ROLE_ADMIN, ROLE_USER})
   @GetMapping(value = "/api/pets/{id}")
   public ResponseEntity findById(@PathVariable("id") Long id) {
-    Pet pet = petRepository.findById(id);
-
-    if (pet != null) {
-      return ResponseEntity.ok(pet);
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+    return petRepository.findById(id)
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> status(NOT_FOUND).body(null));
   }
-
 
   @Secured(ROLE_ADMIN)
   @PostMapping(value = "/api/pets")

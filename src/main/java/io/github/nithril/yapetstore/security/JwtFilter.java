@@ -60,12 +60,8 @@ public class JwtFilter extends GenericFilterBean {
       // Get cookie
       Cookie jwtCookie = Arrays.stream(cookies)
           .filter(cookie -> jwtCookieName.equals(cookie.getName()))
-          .findFirst().orElse(null);
-
-      if (jwtCookie == null) {
-        response.setStatus(401);
-        return;
-      }
+          .findFirst()
+          .orElseThrow(() -> new InvalidCookieException("jwtCookie cookie not found"));
 
       // Check and parse jwt token
       Claims claims = securityService.checkAndParseJwt(jwtCookie.getValue());
